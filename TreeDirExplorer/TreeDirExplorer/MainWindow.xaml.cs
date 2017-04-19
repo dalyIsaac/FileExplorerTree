@@ -28,50 +28,79 @@ namespace TreeDirExplorer
             InitializeComponent();
         }
 
-        private void SelectFolder_Click(object sender, RoutedEventArgs e) => DoWork();
+        /// <summary>
+        /// SelectFolder button click event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SelectFolder_Click(object sender, RoutedEventArgs e) => GetItems();
 
-        private void Window_Loaded(object sender, RoutedEventArgs e) => DoWork();
+        /// <summary>
+        /// Window loaded event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Window_Loaded(object sender, RoutedEventArgs e) => GetItems();
 
-        private void DoWork()
+        /// <summary>
+        /// Gets all the directory items inside the specified directory
+        /// </summary>
+        private void GetItems()
         {
             var dialog = new CommonOpenFileDialog() { IsFolderPicker = true };
             dialog.ShowDialog();
             try
             {
-                string[] fileNameParts = dialog.FileName.Split('\\');
-                FolderName.Text = fileNameParts.Last();
+                // Sets the title items
+                FolderName.Text = dialog.FileName.Split('\\').Last();
                 FolderPath.Text = dialog.FileName;
 
                 BackgroundWorker Worker = new BackgroundWorker() { WorkerReportsProgress = true };
                 Worker.DoWork += Worker_DoWork;
                 Worker.ProgressChanged += Worker_ProgressChanged;
-                Worker.RunWorkerAsync(dialog.FileName);
+                Worker.RunWorkerAsync(dialog.FileName); // Passes in the directory to search
             }
             catch (Exception)
             {
             }
         }
 
+        /// <summary>
+        /// Calls the GetItems method
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
             string path = (string)e.Argument;
             GetItems(sender, path);
         }
 
+        /// <summary>
+        /// Gets all the items in a specified directory, and adds them to the Tree
+        /// </summary>
+        /// <param name="sender">Used for adding the items to the Tree</param>
+        /// <param name="path">Directory path</param>
+        /// <param name="tabIndex">Number of indentations for an object</param>
         private void GetItems(object sender, string path, int tabIndex = 0)
         {
-            foreach (string folderPath in Directory.GetDirectories(path))
+            foreach (string folderPath in Directory.GetDirectories(path)) // Gets all the directories in the specified directory
             {
-                (sender as BackgroundWorker).ReportProgress(0, new DirectoryItem(folderPath, tabIndex));
-                GetItems(sender, folderPath, tabIndex + 1);
+                (sender as BackgroundWorker).ReportProgress(0, new DirectoryItem(folderPath, tabIndex)); // Add the item to the tree
+                GetItems(sender, folderPath, tabIndex + 1); // Recursively search all the directories found
             }
 
-            foreach (string filePath in Directory.GetFiles(path))
+            foreach (string filePath in Directory.GetFiles(path)) // Gets all the files in the specified directory
             {
-                (sender as BackgroundWorker).ReportProgress(0, new DirectoryItem(filePath, tabIndex));
+                (sender as BackgroundWorker).ReportProgress(0, new DirectoryItem(filePath, tabIndex)); // Add the item to the Tree
             }
         }
 
+        /// <summary>
+        /// Adds items to the Tree for the user to see
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             Tree.Items.Add(e.UserState);

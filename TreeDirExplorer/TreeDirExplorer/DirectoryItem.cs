@@ -1,35 +1,68 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TreeDirExplorer
 {
+    /// <summary>
+    /// Contains information about items inside a directory
+    /// </summary>
     public class DirectoryItem
     {
+        /// <summary>
+        /// Item name
+        /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        ///  Item path
+        /// </summary>
         public string Path { get; set; }
+
+        /// <summary>
+        /// The level of indentation for the tree
+        /// </summary>
         public string Indentation { get; set; }
+
+        /// <summary>
+        /// Last modified date (yyyy-MM-dd)
+        /// </summary>
         public string LastModifiedDate { get; set; }
+
+        /// <summary>
+        /// Last modified time (HH:mm:ss)
+        /// </summary>
         public string LastModifiedTime { get; set; }
+
+        /// <summary>
+        /// Virtual size of item (byte/KB/MB/GB/TB/PB/EB/ZB/YB)
+        /// </summary>
         public string Size { get; set; }
+
+        /// <summary>
+        /// Contains a string with the image's location inside the root application folder
+        /// </summary>
         public string ImageLocation { get; set; }
 
+
+        /// <summary>
+        /// Creates a new DirectoryItem with all properties
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="TabIndex"></param>
         public DirectoryItem(string path, int TabIndex)
         {
             Indentation = new string(' ', TabIndex * 8);
             Name = path.Split('\\').Last();
             Path = path;
-            DateTime lastmod = System.IO.File.GetLastWriteTime(path);
+            DateTime lastmod = System.IO.File.GetLastWriteTime(path); // Gets the date and time of the last time the file/folder was modified
             LastModifiedDate = lastmod.ToString("yyyy-MM-dd");
             LastModifiedTime = lastmod.ToString("HH:mm:ss");
             long size;
-            try
+            try // Item is a file
             {
                 size = new System.IO.FileInfo(path).Length;
             }
-            catch (Exception)
+            catch (Exception) // Item is a folder
             {
                 size = GetDirectorySize(path);
                 ImageLocation = "open.ico";
@@ -37,14 +70,28 @@ namespace TreeDirExplorer
             Size = SizeSuffix(size);
         }
 
+        /// <summary>
+        /// Gets the size of the folder
+        /// </summary>
+        /// <param name="folderPath">Path of the folder</param>
+        /// <returns></returns>
         private static long GetDirectorySize(string folderPath)
         {
             System.IO.DirectoryInfo di = new System.IO.DirectoryInfo(folderPath);
             return di.EnumerateFiles("*.*", System.IO.SearchOption.AllDirectories).Sum(fi => fi.Length);
         }
 
+        /// <summary>
+        /// Array of all the possible suffixes for a size string
+        /// </summary>
         private static readonly string[] SizeSuffixes = { "bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB" };
 
+        /// <summary>
+        /// Converts the size of the item to a user friendly string
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="decimalPlaces"></param>
+        /// <returns></returns>
         private static string SizeSuffix(long value, int decimalPlaces = 2)
         {
             if (value < 0) { return "-" + SizeSuffix(-value); }
