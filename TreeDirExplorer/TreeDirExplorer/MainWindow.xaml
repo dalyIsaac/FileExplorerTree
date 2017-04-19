@@ -1,0 +1,85 @@
+﻿<Window x:Class="TreeDirExplorer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TreeDirExplorer"
+        mc:Ignorable="d"
+        Title="Tree Directory Explorer" Height="Auto" Width="Auto"
+        Loaded="Window_Loaded">
+    <Window.Resources>
+        <ResourceDictionary>
+            <Style x:Key="LeftHeader" TargetType="{x:Type GridViewColumnHeader}">
+                <Setter Property="HorizontalContentAlignment" Value="Left" />
+                <Setter Property="Padding" Value="8,0,0,0" />
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Background="#4286f4"
+                    Grid.ColumnSpan="3">
+            <StackPanel HorizontalAlignment="Center"
+                        Margin="0,4,0,0">
+                <TextBlock Name="FolderName" 
+                           Foreground="White"
+                           FontWeight="Bold"
+                           HorizontalAlignment="Center"/>
+                <TextBlock Name="FolderPath"
+                           Foreground="White"
+                           HorizontalAlignment="Center"/>
+            </StackPanel>
+        </StackPanel>
+
+        <Button Name="SelectFolder" 
+                Background="#7fb0ff" 
+                Content="Select Folder" 
+                Click="SelectFolder_Click" 
+                HorizontalAlignment="Right" 
+                VerticalAlignment="Center" 
+                Foreground="White"
+                Grid.Column="2"
+                Margin="8,8,20,8"
+                Width="120"/>
+        
+        <ListView Name="Tree"
+                  Grid.Row="1"
+                  Grid.ColumnSpan="3">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Name" HeaderContainerStyle="{StaticResource LeftHeader}" Width="1000">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Indentation}" />
+                                    <Image Source="{Binding ImageLocation}" Height="12"/>
+                                    <TextBlock Text="{Binding Name}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    
+                    <GridViewColumn Header="Last Modified Date" Width="Auto" DisplayMemberBinding="{Binding LastModifiedDate}" />
+                    <GridViewColumn Header="Last Modified Time" Width="Auto" DisplayMemberBinding="{Binding LastModifiedTime}" />
+                    <GridViewColumn Header="File Size" Width="80">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Size}" TextAlignment="Right" Width="68" HorizontalAlignment="Left"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+    </Grid>
+</Window>

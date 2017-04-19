@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Trees.Properties
+namespace TreeDirExplorer.Properties
 {
 
 
