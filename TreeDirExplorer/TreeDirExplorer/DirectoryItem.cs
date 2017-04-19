@@ -43,6 +43,15 @@ namespace TreeDirExplorer
         /// </summary>
         public string ImageLocation { get; set; }
 
+        /// <summary>
+        /// Color to display text
+        /// </summary>
+        public string Color { get; set; }
+
+        /// <summary>
+        /// Underlines folders
+        /// </summary>
+        public string TextDecoration { get; set; }
 
         /// <summary>
         /// Creates a new DirectoryItem with all properties
@@ -61,11 +70,14 @@ namespace TreeDirExplorer
             try // Item is a file
             {
                 size = new System.IO.FileInfo(path).Length;
+                Color = "#000000";
             }
             catch (Exception) // Item is a folder
             {
                 size = GetDirectorySize(path);
-                ImageLocation = "open.ico";
+                ImageLocation = "Icons/chevron.ico";
+                Color = "#0461f7";
+                TextDecoration = "Underline";
             }
             Size = SizeSuffix(size);
         }

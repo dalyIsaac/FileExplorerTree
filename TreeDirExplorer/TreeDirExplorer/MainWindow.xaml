@@ -17,7 +17,7 @@
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40" />
+            <RowDefinition Height="80" />
             <RowDefinition />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -28,22 +28,44 @@
 
         <StackPanel Background="#4286f4"
                     Grid.ColumnSpan="3">
-            <StackPanel HorizontalAlignment="Center"
-                        Margin="0,4,0,0">
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        Margin="0,18,0,0">
                 <TextBlock Name="FolderName" 
                            Foreground="White"
                            FontWeight="Bold"
-                           HorizontalAlignment="Center"/>
+                           FontSize="24"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"/>
+                <TextBlock Text=" | " 
+                           Foreground="White"
+                           FontSize="30" 
+                           FontWeight="ExtraLight"
+                           VerticalAlignment="Center"/>
                 <TextBlock Name="FolderPath"
                            Foreground="White"
-                           HorizontalAlignment="Center"/>
+                           FontSize="18"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"/>
             </StackPanel>
         </StackPanel>
 
+        <StackPanel Orientation="Horizontal">
+            <Button Name="GoUp" 
+                Background="#7fb0ff" 
+                Content="↑" 
+                Click="GoUp_Click"
+                HorizontalAlignment="Right" 
+                VerticalAlignment="Center" 
+                Foreground="White"
+                Grid.Column="2"
+                Margin="20,8,4,8"
+                Width="20"/>
+        </StackPanel>
+        
         <Button Name="SelectFolder" 
                 Background="#7fb0ff" 
                 Content="Select Folder" 
-                Click="SelectFolder_Click" 
                 HorizontalAlignment="Right" 
                 VerticalAlignment="Center" 
                 Foreground="White"
@@ -54,26 +76,46 @@
         <ListView Name="Tree"
                   Grid.Row="1"
                   Grid.ColumnSpan="3">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <EventSetter Event="MouseDoubleClick" Handler="ListViewItem_MouseDoubleClick" />
+                </Style>
+            </ListView.ItemContainerStyle>
             <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Name" HeaderContainerStyle="{StaticResource LeftHeader}" Width="1000">
+                <GridView >
+                    <GridViewColumn x:Name="Column1" Header="Name" HeaderContainerStyle="{StaticResource LeftHeader}" Width="auto">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="{Binding Indentation}" />
-                                    <Image Source="{Binding ImageLocation}" Height="12"/>
-                                    <TextBlock Text="{Binding Name}" />
+                                    <Image Source="{Binding ImageLocation}" Height="12" Margin="0,0,2,0"/>
+                                    <TextBlock Text="{Binding Name}" Foreground="{Binding Color}" TextDecorations="{Binding TextDecoration}"/>
                                 </StackPanel>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
+
+                    <GridViewColumn Header="Last Modified Date" Width="Auto" >
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding LastModifiedDate}" Foreground="{Binding Color}" TextDecorations="{Binding TextDecoration}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+
+                    <GridViewColumn Header="Last Modified Time" Width="Auto" >
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding LastModifiedTime}" Foreground="{Binding Color}" TextDecorations="{Binding TextDecoration}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                     
-                    <GridViewColumn Header="Last Modified Date" Width="Auto" DisplayMemberBinding="{Binding LastModifiedDate}" />
-                    <GridViewColumn Header="Last Modified Time" Width="Auto" DisplayMemberBinding="{Binding LastModifiedTime}" />
                     <GridViewColumn Header="File Size" Width="80">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Size}" TextAlignment="Right" Width="68" HorizontalAlignment="Left"/>
+                                <TextBlock Text="{Binding Size}" Foreground="{Binding Color}" TextAlignment="Right" Width="68" HorizontalAlignment="Left" TextDecorations="{Binding TextDecoration}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
