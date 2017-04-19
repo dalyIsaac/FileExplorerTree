@@ -34,19 +34,22 @@ namespace TreeDirExplorer
 
         private void DoWork()
         {
-            var dialog = new CommonOpenFileDialog()
+            var dialog = new CommonOpenFileDialog() { IsFolderPicker = true };
+            dialog.ShowDialog();
+            try
             {
-                IsFolderPicker = true
-            };
-            CommonFileDialogResult result = dialog.ShowDialog();
-            string[] fileNameParts = dialog.FileName.Split('\\');
-            FolderName.Text = fileNameParts.Last();
-            FolderPath.Text = dialog.FileName;
+                string[] fileNameParts = dialog.FileName.Split('\\');
+                FolderName.Text = fileNameParts.Last();
+                FolderPath.Text = dialog.FileName;
 
-            BackgroundWorker Worker = new BackgroundWorker() { WorkerReportsProgress = true };
-            Worker.DoWork += Worker_DoWork;
-            Worker.ProgressChanged += Worker_ProgressChanged;
-            Worker.RunWorkerAsync(dialog.FileName);
+                BackgroundWorker Worker = new BackgroundWorker() { WorkerReportsProgress = true };
+                Worker.DoWork += Worker_DoWork;
+                Worker.ProgressChanged += Worker_ProgressChanged;
+                Worker.RunWorkerAsync(dialog.FileName);
+            }
+            catch (Exception)
+            {
+            }
         }
 
         private void Worker_DoWork(object sender, DoWorkEventArgs e)

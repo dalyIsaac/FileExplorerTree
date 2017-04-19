@@ -1,20 +1,48 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.3
+VisualStudioVersion = 15.0.26403.7
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TreeDirExplorer", "TreeDirExplorer\TreeDirExplorer.csproj", "{4554C0F8-7A1A-4864-97D7-557D20989FE4}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "FileExplorerTreeInstaller", "..\FileExplorerTreeInstaller\FileExplorerTreeInstaller.vdproj", "{08565E2F-B680-450E-A4E6-F906D425947D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|ARM = Debug|ARM
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
+		Release|ARM = Release|ARM
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{4554C0F8-7A1A-4864-97D7-557D20989FE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4554C0F8-7A1A-4864-97D7-557D20989FE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4554C0F8-7A1A-4864-97D7-557D20989FE4}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{4554C0F8-7A1A-4864-97D7-557D20989FE4}.Debug|ARM.Build.0 = Debug|Any CPU
+		{4554C0F8-7A1A-4864-97D7-557D20989FE4}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{4554C0F8-7A1A-4864-97D7-557D20989FE4}.Debug|x64.Build.0 = Debug|Any CPU
+		{4554C0F8-7A1A-4864-97D7-557D20989FE4}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4554C0F8-7A1A-4864-97D7-557D20989FE4}.Debug|x86.Build.0 = Debug|Any CPU
 		{4554C0F8-7A1A-4864-97D7-557D20989FE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4554C0F8-7A1A-4864-97D7-557D20989FE4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4554C0F8-7A1A-4864-97D7-557D20989FE4}.Release|ARM.ActiveCfg = Release|Any CPU
+		{4554C0F8-7A1A-4864-97D7-557D20989FE4}.Release|ARM.Build.0 = Release|Any CPU
+		{4554C0F8-7A1A-4864-97D7-557D20989FE4}.Release|x64.ActiveCfg = Release|Any CPU
+		{4554C0F8-7A1A-4864-97D7-557D20989FE4}.Release|x64.Build.0 = Release|Any CPU
+		{4554C0F8-7A1A-4864-97D7-557D20989FE4}.Release|x86.ActiveCfg = Release|Any CPU
+		{4554C0F8-7A1A-4864-97D7-557D20989FE4}.Release|x86.Build.0 = Release|Any CPU
+		{08565E2F-B680-450E-A4E6-F906D425947D}.Debug|Any CPU.ActiveCfg = Debug
+		{08565E2F-B680-450E-A4E6-F906D425947D}.Debug|ARM.ActiveCfg = Debug
+		{08565E2F-B680-450E-A4E6-F906D425947D}.Debug|x64.ActiveCfg = Debug
+		{08565E2F-B680-450E-A4E6-F906D425947D}.Debug|x86.ActiveCfg = Debug
+		{08565E2F-B680-450E-A4E6-F906D425947D}.Release|Any CPU.ActiveCfg = Release
+		{08565E2F-B680-450E-A4E6-F906D425947D}.Release|ARM.ActiveCfg = Release
+		{08565E2F-B680-450E-A4E6-F906D425947D}.Release|x64.ActiveCfg = Release
+		{08565E2F-B680-450E-A4E6-F906D425947D}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
