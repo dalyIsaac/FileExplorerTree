@@ -44,7 +44,13 @@ namespace TreeDirExplorer
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Window_Loaded(object sender, RoutedEventArgs e) => AskUserAndGetItems();
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (Properties.Settings.Default.LastLocation != null)
+            {
+                GetItems(Properties.Settings.Default.LastLocation);
+            }
+        }
 
         /// <summary>
         /// Asks the user for the folder and gets the 
@@ -98,6 +104,8 @@ namespace TreeDirExplorer
                     Worker.WorkerSupportsCancellation = true;
                     Worker.RunWorkerAsync(FileName); // Passes in the directory to search
                     MaxTabIndex = 0;
+                    Properties.Settings.Default.LastLocation = FileName;
+                    Properties.Settings.Default.Save();
                 }
             }
             catch (Exception)
@@ -222,7 +230,17 @@ namespace TreeDirExplorer
         private void ListViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             DirectoryItem item = (DirectoryItem)(sender as ListViewItem).Content;
-            GetItems(item.Path);
+
+            try
+            {
+                Directory.GetFiles(item.Path);
+                GetItems(item.Path);
+            }
+            catch (Exception)
+            {
+                System.Diagnostics.Process.Start(item.Path);
+
+            }
         }
 
         /// <summary>
