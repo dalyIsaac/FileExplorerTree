@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 
 namespace TreeDirExplorer
@@ -71,26 +72,33 @@ namespace TreeDirExplorer
             {
                 size = new System.IO.FileInfo(path).Length;
                 Color = "#000000";
+                Size = SizeSuffix(size);
             }
             catch (Exception) // Item is a folder
             {
-                size = GetDirectorySize(path);
+                //size = GetDirectorySize(path); // Incredible cost
                 ImageLocation = "Icons/chevron.ico";
                 Color = "#0461f7";
                 TextDecoration = "Underline";
             }
-            Size = SizeSuffix(size);
+            //Size = SizeSuffix(size);
         }
 
-        /// <summary>
-        /// Gets the size of the folder
-        /// </summary>
-        /// <param name="folderPath">Path of the folder</param>
-        /// <returns></returns>
-        private static long GetDirectorySize(string folderPath)
+        private long size = 0;
+
+        private long GetDirectorySize(string directory)
         {
-            System.IO.DirectoryInfo di = new System.IO.DirectoryInfo(folderPath);
-            return di.EnumerateFiles("*.*", System.IO.SearchOption.AllDirectories).Sum(fi => fi.Length);
+            foreach (string dir in Directory.GetDirectories(directory))
+            {
+                GetDirectorySize(dir);
+            }
+
+            foreach (FileInfo file in new DirectoryInfo(directory).GetFiles())
+            {
+                size += file.Length;
+            }
+
+            return size;
         }
 
         /// <summary>
