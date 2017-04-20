@@ -76,12 +76,6 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_1AA508845576C5831CEAA1421F47E241"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_A58B691AD5DB41EF84AC736F8D1E24B5"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -107,6 +101,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_E97AC3306485F0D8C0E9C489A014687A"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_1AA508845576C5831CEAA1421F47E241"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -436,7 +436,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:DTree"
         "ProductCode" = "8:{11669DC4-0FFF-410E-9BED-6F4527220DFA}"
-        "PackageCode" = "8:{44FA40D5-178B-4220-AC38-B79EBEB38FA8}"
+        "PackageCode" = "8:{E95DF0F8-A463-4C44-BB16-7013A42632B9}"
         "UpgradeCode" = "8:{9B2F5844-3D34-43B7-B4A7-589170F9BC4D}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -567,7 +567,7 @@
             "Target" = "8:_A58B691AD5DB41EF84AC736F8D1E24B5"
             "Folder" = "8:_5A1CC315A5FB425588FE456187E70695"
             "WorkingFolder" = "8:_83C0A70277214045971BBEF9443E2550"
-            "Icon" = "8:"
+            "Icon" = "8:_74E5F108D6C74C84ABBCA7DDB7C3B1AC"
             "Feature" = "8:"
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_7BD046E18DCC47DDA151894B02A1ECEF"
@@ -581,7 +581,7 @@
             "Target" = "8:_A58B691AD5DB41EF84AC736F8D1E24B5"
             "Folder" = "8:_0FB04BFFE2F040E88518D1BF8BD5F624"
             "WorkingFolder" = "8:_83C0A70277214045971BBEF9443E2550"
-            "Icon" = "8:"
+            "Icon" = "8:_74E5F108D6C74C84ABBCA7DDB7C3B1AC"
             "Feature" = "8:"
             }
         }

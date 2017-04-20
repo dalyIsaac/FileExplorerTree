@@ -30,6 +30,7 @@ namespace TreeDirExplorer
             EditURLBarCommand.InputGestures.Add(new KeyGesture(Key.E, ModifierKeys.Control));
             EditURLBarCommand.InputGestures.Add(new KeyGesture(Key.L, ModifierKeys.Control));
             EnterCommand.InputGestures.Add(new KeyGesture(Key.Enter));
+            OpenFolderCommand.InputGestures.Add(new KeyGesture(Key.O, ModifierKeys.Control));
         }
 
         /// <summary>
@@ -167,7 +168,8 @@ namespace TreeDirExplorer
         /// <param name="e"></param>
         private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            Tree.Items.Add(e.UserState);
+            ListViewItem item = new ListViewItem { Content = e.UserState };
+            Tree.Items.Add(item);
         }
 
         /// <summary>
@@ -184,8 +186,11 @@ namespace TreeDirExplorer
         {
             try
             {
-                int BiggestItemLength = Tree.Items.OfType<DirectoryItem>().OrderBy(x => x.Name.Length).Last().Name.Length;
-                Column1.Width = MaxTabIndex * 24 + BiggestItemLength * 8;
+                var ListViewItems = Tree.Items.OfType<ListViewItem>();
+                var DirectoryItems = from item in ListViewItems select (DirectoryItem)item.Content;
+                var ordered = DirectoryItems.OrderBy(x => x.Name.Length);
+                var BiggestLength = ordered.Last().Name.Length;
+                Column1.Width = MaxTabIndex * 24 + BiggestLength * 8;
             }
             catch (Exception)
             {
@@ -255,7 +260,7 @@ namespace TreeDirExplorer
         /// <param name="e"></param>
         private void EnterCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            if(EnterButton.IsEnabled)
+            if(EnterButton.IsEnabled && FolderPath.IsFocused)
             {
                 GetItems(FolderPath.Text);
             }
@@ -303,6 +308,48 @@ namespace TreeDirExplorer
         {
             FolderPath.CaretIndex = FolderPath.Text.Length; // Moves the cursor to the end
             FolderPath.Focus();
+        }
+
+        /// <summary>
+        /// Command to open the Windows folder dialog to select a new folder
+        /// </summary>
+        public static RoutedCommand OpenFolderCommand = new RoutedCommand();
+
+        /// <summary>
+        /// Ask the user and get items
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OpenFolderCommand_Executed(object sender, ExecutedRoutedEventArgs e) => AskUserAndGetItems();
+
+        /// <summary>
+        /// Minimizes/maximizes a folder in the tree structure
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ListViewItem_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            ListViewItem itemClickedListViewItem = sender as ListViewItem;
+            DirectoryItem itemClicked = (DirectoryItem)itemClickedListViewItem.Content;
+            if (itemClickedListViewItem != null && itemClicked.ParentPath != null)
+            {
+                foreach (var item in Tree.Items)
+                {
+                    var temp = (DirectoryItem)(((ListViewItem)item).Content);
+                    string itemClickedPath = itemClicked.Path;
+                    if (temp.Path != itemClicked.Path && temp.ParentPath.Contains(itemClickedPath))
+                    {
+                        if (((ListViewItem)item).Visibility == Visibility.Visible)
+                        {
+                            ((ListViewItem)item).Visibility = Visibility.Collapsed;
+                        }
+                        else
+                        {
+                            ((ListViewItem)item).Visibility = Visibility.Visible;
+                        }
+                    }
+                }
+            }
         }
     }
 }

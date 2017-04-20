@@ -20,6 +20,7 @@
         <CommandBinding Command="{x:Static local:MainWindow.GoUpCommand}" Executed="GoUp_Executed"/>
         <CommandBinding Command="{x:Static local:MainWindow.EnterCommand}" Executed="EnterCommand_Executed" />
         <CommandBinding Command="{x:Static local:MainWindow.EditURLBarCommand}" Executed="EditURLBarCommand_Executed" />
+        <CommandBinding Command="{x:Static local:MainWindow.OpenFolderCommand}" Executed="OpenFolderCommand_Executed" />
     </Window.CommandBindings>
     <Grid>
         <Grid.RowDefinitions>
@@ -84,6 +85,7 @@
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <EventSetter Event="MouseDoubleClick" Handler="ListViewItem_MouseDoubleClick" />
+                    <EventSetter Event="PreviewMouseLeftButtonDown" Handler="ListViewItem_PreviewMouseLeftButtonDown" />
                 </Style>
             </ListView.ItemContainerStyle>
             <ListView.View>

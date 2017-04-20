@@ -20,6 +20,11 @@ namespace TreeDirExplorer
         public string Path { get; set; }
 
         /// <summary>
+        /// Stores the path of the parent object
+        /// </summary>
+        public string ParentPath { get; set; }
+
+        /// <summary>
         /// The level of indentation for the tree
         /// </summary>
         public string Indentation { get; set; }
@@ -64,6 +69,10 @@ namespace TreeDirExplorer
             Indentation = new string(' ', TabIndex * 8);
             Name = path.Split('\\').Last();
             Path = path;
+            if (path.Split('\\').Length != 1)
+            {
+                ParentPath = String.Join("\\", (path.Split('\\').Where(x => x != Name)));
+            }
             DateTime lastmod = System.IO.File.GetLastWriteTime(path); // Gets the date and time of the last time the file/folder was modified
             LastModifiedDate = lastmod.ToString("yyyy-MM-dd");
             LastModifiedTime = lastmod.ToString("HH:mm:ss");
