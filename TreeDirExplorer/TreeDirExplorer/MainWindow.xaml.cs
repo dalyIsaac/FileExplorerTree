@@ -49,10 +49,16 @@ namespace TreeDirExplorer
         {
             var dialog = new CommonOpenFileDialog() { IsFolderPicker = true };
             dialog.ShowDialog();
-            GetItems(dialog.FileName);
+            try
+            {
+                GetItems(dialog.FileName);
+            }
+            catch (Exception)
+            {
+            }
         }
 
-        public BackgroundWorker Worker { get; set; }
+        public AbortableBackgroundWorker Worker { get; set; }
 
         /// <summary>
         /// Gets all the directory items inside the specified directory
@@ -71,19 +77,23 @@ namespace TreeDirExplorer
                         if (Worker.IsBusy)
                         {
                             Worker.CancelAsync();
+                            Worker.Abort();
+                            Worker.Dispose();
                         }
                     }
-                    
-                    Worker = new BackgroundWorker() { WorkerReportsProgress = true };
+
+                    Tree.Items.Clear();
+
+                    Worker = new AbortableBackgroundWorker() { WorkerReportsProgress = true };
                     Worker.DoWork += Worker_DoWork;
                     Worker.ProgressChanged += Worker_ProgressChanged;
                     Worker.RunWorkerCompleted += Worker_Completed;
-                    Worker.WorkerSupportsCancellation = true; 
+                    Worker.WorkerSupportsCancellation = true;
                     Worker.RunWorkerAsync(FileName); // Passes in the directory to search
                     MaxTabIndex = 0;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
             }
         }
@@ -107,19 +117,31 @@ namespace TreeDirExplorer
         /// <param name="tabIndex">Number of indentations for an object</param>
         private void GetItems(object sender, string path, int tabIndex = 0)
         {
-            foreach (string folderPath in Directory.GetDirectories(path)) // Gets all the directories in the specified directory
+            try
             {
-                (sender as BackgroundWorker).ReportProgress(0, new DirectoryItem(folderPath, tabIndex)); // Add the item to the tree
-                GetItems(sender, folderPath, tabIndex + 1); // Recursively search all the directories found
-                if(tabIndex > MaxTabIndex)
+                foreach (string folderPath in Directory.GetDirectories(path)) // Gets all the directories in the specified directory
                 {
-                    MaxTabIndex = tabIndex;
+                    (sender as AbortableBackgroundWorker).ReportProgress(0, new DirectoryItem(folderPath, tabIndex)); // Add the item to the tree
+                    GetItems(sender, folderPath, tabIndex + 1); // Recursively search all the directories found
+                    if (tabIndex > MaxTabIndex)
+                    {
+                        MaxTabIndex = tabIndex;
+                    }
                 }
             }
-
-            foreach (string filePath in Directory.GetFiles(path)) // Gets all the files in the specified directory
+            catch (Exception)
             {
-                (sender as BackgroundWorker).ReportProgress(0, new DirectoryItem(filePath, tabIndex)); // Add the item to the Tree
+            }
+
+            try
+            {
+                foreach (string filePath in Directory.GetFiles(path)) // Gets all the files in the specified directory
+                {
+                    (sender as AbortableBackgroundWorker).ReportProgress(0, new DirectoryItem(filePath, tabIndex)); // Add the item to the Tree
+                }
+            }
+            catch (Exception)
+            {
             }
         }
 
@@ -145,8 +167,14 @@ namespace TreeDirExplorer
         /// <param name="e"></param>
         private void Worker_Completed(object sender, RunWorkerCompletedEventArgs e)
         {
-            int BiggestItemLength = Tree.Items.OfType<DirectoryItem>().OrderBy(x => x.Name.Length).Last().Name.Length;
-            Column1.Width = MaxTabIndex * 24 + BiggestItemLength * 8;
+            try
+            {
+                int BiggestItemLength = Tree.Items.OfType<DirectoryItem>().OrderBy(x => x.Name.Length).Last().Name.Length;
+                Column1.Width = MaxTabIndex * 24 + BiggestItemLength * 8;
+            }
+            catch (Exception)
+            {
+            }
         }
 
         private void GoUp_Click(object sender, RoutedEventArgs e)
@@ -179,11 +207,13 @@ namespace TreeDirExplorer
             {
                 ErrorMessage.Text = "";
                 EnterButton.IsEnabled = true;
+                GoUp.IsEnabled = true;
             }
             else
             {
                 ErrorMessage.Text = "Folder not valid";
                 EnterButton.IsEnabled = false;
+                GoUp.IsEnabled = false;
             }
         }
     }
