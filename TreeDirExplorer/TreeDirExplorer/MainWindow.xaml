@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TreeDirExplorer"
         mc:Ignorable="d"
-        Title="Tree Directory Explorer" Height="Auto" Width="Auto"
-        Loaded="Window_Loaded">
+        Title="Tree Directory Explorer" Height="1080" Width="1920"
+        Loaded="Window_Loaded"
+        Name="Window">
     <Window.Resources>
         <ResourceDictionary>
             <Style x:Key="LeftHeader" TargetType="{x:Type GridViewColumnHeader}">
@@ -17,7 +18,7 @@
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="80" />
+            <RowDefinition Height="20" />
             <RowDefinition />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -25,54 +26,53 @@
             <ColumnDefinition />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-
         <StackPanel Background="#4286f4"
-                    Grid.ColumnSpan="3">
-            <StackPanel Orientation="Horizontal"
-                        HorizontalAlignment="Center"
-                        Margin="0,18,0,0">
-                <TextBlock Name="FolderName" 
-                           Foreground="White"
-                           FontWeight="Bold"
-                           FontSize="24"
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Center"/>
-                <TextBlock Text=" | " 
-                           Foreground="White"
-                           FontSize="30" 
-                           FontWeight="ExtraLight"
-                           VerticalAlignment="Center"/>
-                <TextBlock Name="FolderPath"
-                           Foreground="White"
-                           FontSize="18"
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Center"/>
-            </StackPanel>
-        </StackPanel>
+                    Grid.ColumnSpan="3" />
 
-        <StackPanel Orientation="Horizontal">
+        <RelativePanel Grid.ColumnSpan="3">
             <Button Name="GoUp" 
-                Background="#7fb0ff" 
-                Content="↑" 
-                Click="GoUp_Click"
-                HorizontalAlignment="Right" 
-                VerticalAlignment="Center" 
-                Foreground="White"
-                Grid.Column="2"
-                Margin="20,8,4,8"
-                Width="20"/>
-        </StackPanel>
+                        Background="#7fb0ff" 
+                        Content="↑"
+                        FontWeight="Black"
+                        Click="GoUp_Click"
+                        HorizontalAlignment="Right" 
+                        VerticalAlignment="Center" 
+                        Foreground="White"
+                        Width="20"
+                    Margin="5,0,0,0"/>
+            <TextBox Name="FolderPath"
+                        Margin="30,1,160,0"
+                        RelativePanel.AlignLeftWithPanel="True"
+                        RelativePanel.AlignRightWithPanel="True"
+                     TextChanged="FolderPath_TextChanged"/>
+            <Button Name="EnterButton" 
+                    Background="#7fb0ff" 
+                    Content="↵" 
+                    Click="EnterButton_Click"
+                    HorizontalAlignment="Right" 
+                    VerticalAlignment="Center"
+                    Foreground="White"
+                    Width="20"
+                    Margin="0,0,135,0"
+                    RelativePanel.AlignRightWithPanel="True"/>
+            <TextBlock Name="ErrorMessage"
+                       Foreground="Red"
+                       RelativePanel.AlignRightWithPanel="True"
+                       Margin="0,1,164,0" 
+                       FontWeight="Bold"/>
+        </RelativePanel>
         
         <Button Name="SelectFolder" 
-                Background="#7fb0ff" 
-                Content="Select Folder" 
-                HorizontalAlignment="Right" 
-                VerticalAlignment="Center" 
-                Foreground="White"
-                Grid.Column="2"
-                Margin="8,8,20,8"
-                Width="120"/>
-        
+                        Background="#7fb0ff" 
+                        Content="Select Folder" 
+                Click="SelectFolder_Click"
+                        HorizontalAlignment="Right" 
+                        VerticalAlignment="Center" 
+                        Foreground="White"
+                        Margin="4,0,10,0"
+                        Width="120"
+                Grid.Column="2"/>
+
         <ListView Name="Tree"
                   Grid.Row="1"
                   Grid.ColumnSpan="3">

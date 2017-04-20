@@ -52,6 +52,8 @@ namespace TreeDirExplorer
             GetItems(dialog.FileName);
         }
 
+        public BackgroundWorker Worker { get; set; }
+
         /// <summary>
         /// Gets all the directory items inside the specified directory
         /// </summary>
@@ -62,19 +64,26 @@ namespace TreeDirExplorer
                 if (!(Directory.GetFiles(FileName).Length == 0 && Directory.GetDirectories(FileName).Length == 0))
                 {
                     // Sets the title items
-                    FolderName.Text = FileName.Split('\\').Last();
                     FolderPath.Text = FileName;
-                    Tree.Items.Clear();
 
-                    BackgroundWorker Worker = new BackgroundWorker() { WorkerReportsProgress = true };
+                    if (Worker != null)
+                    {
+                        if (Worker.IsBusy)
+                        {
+                            Worker.CancelAsync();
+                        }
+                    }
+                    
+                    Worker = new BackgroundWorker() { WorkerReportsProgress = true };
                     Worker.DoWork += Worker_DoWork;
                     Worker.ProgressChanged += Worker_ProgressChanged;
                     Worker.RunWorkerCompleted += Worker_Completed;
+                    Worker.WorkerSupportsCancellation = true; 
                     Worker.RunWorkerAsync(FileName); // Passes in the directory to search
                     MaxTabIndex = 0;
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
             }
         }
@@ -157,6 +166,25 @@ namespace TreeDirExplorer
         {
             DirectoryItem item = (DirectoryItem)(sender as ListViewItem).Content;
             GetItems(item.Path);
+        }
+
+        private void EnterButton_Click(object sender, RoutedEventArgs e)
+        {
+            GetItems(FolderPath.Text);
+        }
+
+        private void FolderPath_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (Directory.Exists(FolderPath.Text))
+            {
+                ErrorMessage.Text = "";
+                EnterButton.IsEnabled = true;
+            }
+            else
+            {
+                ErrorMessage.Text = "Folder not valid";
+                EnterButton.IsEnabled = false;
+            }
         }
     }
 }
