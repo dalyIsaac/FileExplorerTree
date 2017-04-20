@@ -72,16 +72,15 @@ namespace TreeDirExplorer
             {
                 size = new System.IO.FileInfo(path).Length;
                 Color = "#000000";
-                Size = SizeSuffix(size);
             }
             catch (Exception) // Item is a folder
             {
-                //size = GetDirectorySize(path); // Incredible cost
+                size = GetDirectorySize(path); // Incredible cost
                 ImageLocation = "Icons/chevron.ico";
                 Color = "#0461f7";
                 TextDecoration = "Underline";
             }
-            //Size = SizeSuffix(size);
+            Size = SizeSuffix(size);
         }
 
         private long size = 0;

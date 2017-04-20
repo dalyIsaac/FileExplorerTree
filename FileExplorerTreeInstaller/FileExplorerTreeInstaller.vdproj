@@ -16,13 +16,13 @@
         "Entry"
         {
         "MsmKey" = "8:_1AA508845576C5831CEAA1421F47E241"
-        "OwnerKey" = "8:_A14311DBA77140FEA3A817B1563BF67F"
+        "OwnerKey" = "8:_A58B691AD5DB41EF84AC736F8D1E24B5"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_4B24DEE5305DFC70B921D92487E62018"
-        "OwnerKey" = "8:_A14311DBA77140FEA3A817B1563BF67F"
+        "OwnerKey" = "8:_A58B691AD5DB41EF84AC736F8D1E24B5"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -34,25 +34,31 @@
         "Entry"
         {
         "MsmKey" = "8:_6F4115BC13FE5123B9C7A9381D30A32A"
-        "OwnerKey" = "8:_A14311DBA77140FEA3A817B1563BF67F"
+        "OwnerKey" = "8:_A58B691AD5DB41EF84AC736F8D1E24B5"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_A14311DBA77140FEA3A817B1563BF67F"
+        "MsmKey" = "8:_74E5F108D6C74C84ABBCA7DDB7C3B1AC"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_BDBA6955D6B347F78ACA867FA6056522"
+        "MsmKey" = "8:_984887FFDD3F9010B78ED3942C4ACF03"
+        "OwnerKey" = "8:_A58B691AD5DB41EF84AC736F8D1E24B5"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_A58B691AD5DB41EF84AC736F8D1E24B5"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_E97AC3306485F0D8C0E9C489A014687A"
-        "OwnerKey" = "8:_A14311DBA77140FEA3A817B1563BF67F"
+        "OwnerKey" = "8:_A58B691AD5DB41EF84AC736F8D1E24B5"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -76,7 +82,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_A14311DBA77140FEA3A817B1563BF67F"
+        "OwnerKey" = "8:_A58B691AD5DB41EF84AC736F8D1E24B5"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_984887FFDD3F9010B78ED3942C4ACF03"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -122,6 +134,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.6.1"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.6.1 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.6.1"
+                    }
+                }
             }
         }
         "Release"
@@ -277,9 +297,9 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_BDBA6955D6B347F78ACA867FA6056522"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_74E5F108D6C74C84ABBCA7DDB7C3B1AC"
             {
-            "SourcePath" = "8:..\\TreeDirExplorer\\TreeDirExplorer\\tree.ico"
+            "SourcePath" = "8:..\\TreeDirExplorer\\TreeDirExplorer\\Icons\\tree.ico"
             "TargetName" = "8:tree.ico"
             "Tag" = "8:"
             "Folder" = "8:_83C0A70277214045971BBEF9443E2550"
@@ -295,6 +315,37 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_984887FFDD3F9010B78ED3942C4ACF03"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:UniversalWPF, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_984887FFDD3F9010B78ED3942C4ACF03"
+                    {
+                    "Name" = "8:UniversalWPF.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:UniversalWPF.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_83C0A70277214045971BBEF9443E2550"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_E97AC3306485F0D8C0E9C489A014687A"
@@ -383,9 +434,9 @@
         "Product"
         {
         "Name" = "8:Microsoft Visual Studio"
-        "ProductName" = "8:FileExplorerTreeInstaller"
+        "ProductName" = "8:DTree"
         "ProductCode" = "8:{11669DC4-0FFF-410E-9BED-6F4527220DFA}"
-        "PackageCode" = "8:{1B738CBC-9922-4DD1-AA81-C1097AB0634D}"
+        "PackageCode" = "8:{44FA40D5-178B-4220-AC38-B79EBEB38FA8}"
         "UpgradeCode" = "8:{9B2F5844-3D34-43B7-B4A7-589170F9BC4D}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -505,7 +556,7 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_E982E8CEF6A54A2B90707C0B638C1498"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_202F6E6E722E4FBF97F793778303B5EE"
             {
             "Name" = "8:TreeDirExplorer"
             "Arguments" = "8:"
@@ -513,24 +564,24 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_A14311DBA77140FEA3A817B1563BF67F"
-            "Folder" = "8:_0FB04BFFE2F040E88518D1BF8BD5F624"
-            "WorkingFolder" = "8:_83C0A70277214045971BBEF9443E2550"
-            "Icon" = "8:_BDBA6955D6B347F78ACA867FA6056522"
-            "Feature" = "8:"
-            }
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_FA8B89AB0DCF49ECA752723198552ACD"
-            {
-            "Name" = "8:TreeDirExplorer"
-            "Arguments" = "8:"
-            "Description" = "8:"
-            "ShowCmd" = "3:1"
-            "IconIndex" = "3:0"
-            "Transitive" = "11:FALSE"
-            "Target" = "8:_A14311DBA77140FEA3A817B1563BF67F"
+            "Target" = "8:_A58B691AD5DB41EF84AC736F8D1E24B5"
             "Folder" = "8:_5A1CC315A5FB425588FE456187E70695"
             "WorkingFolder" = "8:_83C0A70277214045971BBEF9443E2550"
-            "Icon" = "8:_BDBA6955D6B347F78ACA867FA6056522"
+            "Icon" = "8:"
+            "Feature" = "8:"
+            }
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_7BD046E18DCC47DDA151894B02A1ECEF"
+            {
+            "Name" = "8:TreeDirExplorer"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_A58B691AD5DB41EF84AC736F8D1E24B5"
+            "Folder" = "8:_0FB04BFFE2F040E88518D1BF8BD5F624"
+            "WorkingFolder" = "8:_83C0A70277214045971BBEF9443E2550"
+            "Icon" = "8:"
             "Feature" = "8:"
             }
         }
@@ -932,7 +983,7 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_A14311DBA77140FEA3A817B1563BF67F"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_A58B691AD5DB41EF84AC736F8D1E24B5"
             {
             "SourcePath" = "8:..\\TreeDirExplorer\\TreeDirExplorer\\obj\\Release\\TreeDirExplorer.exe"
             "TargetName" = "8:"
@@ -952,7 +1003,7 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             "ProjectOutputGroupRegister" = "3:1"
-            "OutputConfiguration" = "8:Release|Any CPU"
+            "OutputConfiguration" = "8:"
             "OutputGroupCanonicalName" = "8:Built"
             "OutputProjectGuid" = "8:{4554C0F8-7A1A-4864-97D7-557D20989FE4}"
             "ShowKeyOutput" = "11:TRUE"

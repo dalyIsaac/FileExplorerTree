@@ -26,6 +26,10 @@ namespace TreeDirExplorer
         public MainWindow()
         {
             InitializeComponent();
+            GoUpCommand.InputGestures.Add(new KeyGesture(Key.Up, ModifierKeys.Alt));
+            EditURLBarCommand.InputGestures.Add(new KeyGesture(Key.E, ModifierKeys.Control));
+            EditURLBarCommand.InputGestures.Add(new KeyGesture(Key.L, ModifierKeys.Control));
+            EnterCommand.InputGestures.Add(new KeyGesture(Key.Enter));
         }
 
         /// <summary>
@@ -58,6 +62,9 @@ namespace TreeDirExplorer
             }
         }
 
+        /// <summary>
+        /// Backgroundworker for multithreading
+        /// </summary>
         public AbortableBackgroundWorker Worker { get; set; }
 
         /// <summary>
@@ -177,7 +184,29 @@ namespace TreeDirExplorer
             }
         }
 
-        private void GoUp_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Command to go up
+        /// </summary>
+        public static RoutedCommand GoUpCommand = new RoutedCommand();
+
+        /// <summary>
+        /// Goes up a level after a keyboard shortcut is executed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void GoUp_Executed(object sender, ExecutedRoutedEventArgs e) => GoUp();
+
+        /// <summary>
+        /// Goes up a level
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void GoUp_Click(object sender, RoutedEventArgs e) => GoUp();
+
+        /// <summary>
+        /// Goes up a level
+        /// </summary>
+        private void GoUp()
         {
             var splitDir = FolderPath.Text.Split('\\').ToList();
             splitDir.RemoveAt(splitDir.Count - 1);
@@ -196,25 +225,66 @@ namespace TreeDirExplorer
             GetItems(item.Path);
         }
 
-        private void EnterButton_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Command to go to the specified directory
+        /// </summary>
+        public static RoutedCommand EnterCommand = new RoutedCommand();
+
+        /// <summary>
+        /// Goes to the specified directory if the directory is valid and the enter key has been pressed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void EnterCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            GetItems(FolderPath.Text);
+            if(EnterButton.IsEnabled)
+            {
+                GetItems(FolderPath.Text);
+            }
         }
 
+        /// <summary>
+        /// Goes to the specified directory
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void EnterButton_Click(object sender, RoutedEventArgs e) => GetItems(FolderPath.Text);
+
+        /// <summary>
+        /// Checks if the folder is valid
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FolderPath_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (Directory.Exists(FolderPath.Text))
             {
                 ErrorMessage.Text = "";
                 EnterButton.IsEnabled = true;
-                GoUp.IsEnabled = true;
+                GoUpButton.IsEnabled = true;
             }
             else
             {
                 ErrorMessage.Text = "Folder not valid";
                 EnterButton.IsEnabled = false;
-                GoUp.IsEnabled = false;
+                GoUpButton.IsEnabled = false;
             }
+        }
+
+        /// <summary>
+        /// Command to edit the URL bar
+        /// </summary>
+        public static RoutedCommand EditURLBarCommand = new RoutedCommand();
+
+        /// <summary>
+        /// Goes to the URL bar after the keyboard shortcut is given
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void EditURLBarCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            FolderPath.CaretIndex = FolderPath.Text.Length; // Moves the cursor to the end
+            FolderPath.Focus();
         }
     }
 }

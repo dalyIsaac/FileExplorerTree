@@ -8,9 +8,11 @@ using System.Threading.Tasks;
 
 namespace TreeDirExplorer
 {
+    /// <summary>
+    /// Background worker which can be aborted and disposed of
+    /// </summary>
     public class AbortableBackgroundWorker : BackgroundWorker
     {
-
         private Thread workerThread;
 
         protected override void OnDoWork(DoWorkEventArgs e)

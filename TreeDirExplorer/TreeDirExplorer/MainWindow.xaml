@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TreeDirExplorer"
         mc:Ignorable="d"
-        Title="Tree Directory Explorer" Height="1080" Width="1920"
+        Title="DTree" Height="1080" Width="1920"
         Loaded="Window_Loaded"
         Name="Window">
     <Window.Resources>
@@ -16,6 +16,11 @@
             </Style>
         </ResourceDictionary>
     </Window.Resources>
+    <Window.CommandBindings>
+        <CommandBinding Command="{x:Static local:MainWindow.GoUpCommand}" Executed="GoUp_Executed"/>
+        <CommandBinding Command="{x:Static local:MainWindow.EnterCommand}" Executed="EnterCommand_Executed" />
+        <CommandBinding Command="{x:Static local:MainWindow.EditURLBarCommand}" Executed="EditURLBarCommand_Executed" />
+    </Window.CommandBindings>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="20" />
@@ -30,7 +35,7 @@
                     Grid.ColumnSpan="3" />
 
         <RelativePanel Grid.ColumnSpan="3">
-            <Button Name="GoUp" 
+            <Button Name="GoUpButton" 
                         Background="#7fb0ff" 
                         Content="↑"
                         FontWeight="Black"
